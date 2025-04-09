@@ -1,1 +1,1 @@
-# mist-pipeline
+# mnist-pipeline
