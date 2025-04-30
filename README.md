@@ -1,7 +1,2 @@
 # mnist-pipeline
-1. on push to "train" branch
-2. GitHub Actions: Train Model
-3. Monitor Model with highest "accuracy"
-4. ship best Model to Google Cloud
-5. Streamlit to query Model
-6. Streamlit host with Ploomber
+![MLOps](https://github.com/user-attachments/assets/cfd0ac36-4a5c-4b93-a08b-928cdd02c1c8)
