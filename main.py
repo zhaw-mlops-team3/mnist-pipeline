@@ -10,8 +10,7 @@ from evaluate import evaluate
 from datetime import datetime
 
 def init_wandb():
-    test_config = {"epochs": 5}
-    wandb.init(project="mnist-pipeline",entity="zhaw-mlops-group3", config=test_config)
+    wandb.init(project="mnist-pipeline",entity="zhaw-mlops-group3")
     return wandb.config
 
 def init_device():
