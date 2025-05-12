@@ -24,7 +24,8 @@ jobs:
 
       - name: Build Docker image
         run: |-
-          docker build --build-arg WANDB_ARTIFACT_NAME="${{ github.event.client_payload.wandb_artifact_name }}" -t ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/cloud-run/$GITHUB_REPOSITORY:$GITHUB_SHA .
+         docker build -t ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/cloud-run/$GITHUB_REPOSITORY:$GITHUB_SHA .
+
 
       - name: Push Docker image to Artifact Registry
         run: |-
