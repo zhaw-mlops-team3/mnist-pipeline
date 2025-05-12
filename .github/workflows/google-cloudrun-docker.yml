@@ -27,9 +27,7 @@ jobs:
 
       - name: Build Docker image
         run: |-
-          docker buildx build . \
-            -t ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/cloud-run/$GITHUB_REPOSITORY:$GITHUB_SHA \
-            --load
+          docker buildx build . -t ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/cloud-run/$GITHUB_REPOSITORY:$GITHUB_SHA --load
 
 
 
