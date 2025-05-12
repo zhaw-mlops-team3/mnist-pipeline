@@ -24,15 +24,11 @@ jobs:
 
       - name: List current directory contents
         run: ls -alh
+      - name: Build Docker image
+        run: |-
+          docker build -t ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/cloud-run/$GITHUB_REPOSITORY:$GITHUB_SHA .
 
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      
-      - name: Build Docker image with buildx
-        run: |
-          docker buildx build -t ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/mnist-pipeline/mnist-pipeline:$GITHUB_SHA .
-
+   
 
 
       - name: Push Docker image to Artifact Registry
