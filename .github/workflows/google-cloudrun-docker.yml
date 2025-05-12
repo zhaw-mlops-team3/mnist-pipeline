@@ -1,0 +1,55 @@
+name: Build and Deploy to GCP Cloud Run
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Authenticate to GCP
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Configure Docker for Artifact Registry
+        run: |-
+          gcloud auth configure-docker ${{ secrets.GCP_REGION }}-docker.pkg.dev
+
+      - name: List current directory contents
+        run: ls -alh
+      - name: Build Docker image
+        run: |-
+          docker build -t ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/mnist-pipeline/$GITHUB_REPOSITORY:$GITHUB_SHA .
+
+   
+
+
+      - name: Push Docker image to Artifact Registry
+        run: |-
+          docker push ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/mnist-pipeline/$GITHUB_REPOSITORY:$GITHUB_SHA
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Authenticate to GCP
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Deploy to GCP Cloud Run
+        uses: google-github-actions/deploy-cloudrun@v2
+        with:
+          service: ${{ secrets.GCP_CLOUD_RUN_SERVICE }}
+          image: ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/mnist-pipeline/${{ github.repository }}:${{ github.sha }}
+          REGION: ${{ secrets.GCP_REGION }}
+          env_vars: |
+            WANDB_API_KEY=${{ secrets.WANDB_API_KEY }}
