@@ -33,7 +33,7 @@ jobs:
 
       - name: Push Docker image to Artifact Registry
         run: |-
-          docker push ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/mnist-pipeline/mnist-pipeline:$GITHUB_SHA
+          docker push ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/mnist-pipeline/$GITHUB_REPOSITORY:$GITHUB_SHA
 
   deploy:
     runs-on: ubuntu-latest
