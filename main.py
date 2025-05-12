@@ -12,9 +12,6 @@ from datetime import datetime
 import os
 
 def init_wandb():
-    if "WANDB_API_KEY" not in os.environ:
-        raise ValueError("WANDB_API_KEY not set, aborting!!!")
-    wandb.login(key=os.environ["WANDB_API_KEY"])
     wandb.init(project="mnist-pipeline", entity="zhaw-mlops-group3")
     return wandb.config
 
