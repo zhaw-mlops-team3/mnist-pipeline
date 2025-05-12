@@ -31,14 +31,13 @@ jobs:
       
       - name: Build Docker image with buildx
         run: |
-          docker buildx build --load \
-            -t ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/mnist-pipeline/$GITHUB_REPOSITORY:$GITHUB_SHA .
+          docker buildx build -t ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/mnist-pipeline/mnist-pipeline:$GITHUB_SHA .
 
 
 
       - name: Push Docker image to Artifact Registry
         run: |-
-          docker push ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/mnist-pipeline/$GITHUB_REPOSITORY:$GITHUB_SHA
+          docker push ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/mnist-pipeline/mnist-pipeline:$GITHUB_SHA
 
   deploy:
     runs-on: ubuntu-latest
