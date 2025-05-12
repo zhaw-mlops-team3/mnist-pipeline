@@ -22,6 +22,10 @@ jobs:
         run: |-
           gcloud auth configure-docker ${{ secrets.GCP_REGION }}-docker.pkg.dev
 
+      - name: List current directory contents
+        run: ls -alh
+
+
       - name: Build Docker image
         run: |-
           docker build -t ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/mnist-pipeline/$GITHUB_REPOSITORY:$GITHUB_SHA .
