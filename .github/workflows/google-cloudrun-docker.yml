@@ -24,14 +24,12 @@ jobs:
 
       - name: Build Docker image
         run: |-
-          docker build -t ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/cloud-run/$GITHUB_REPOSITORY:$GITHUB_SHA .
-
-
+          docker build -t ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/mnist-pipeline/$GITHUB_REPOSITORY:$GITHUB_SHA .
 
 
       - name: Push Docker image to Artifact Registry
         run: |-
-          docker push ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/cloud-run/$GITHUB_REPOSITORY:$GITHUB_SHA
+          docker push ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/mnist-pipeline/$GITHUB_REPOSITORY:$GITHUB_SHA
 
   deploy:
     runs-on: ubuntu-latest
@@ -47,7 +45,7 @@ jobs:
         uses: google-github-actions/deploy-cloudrun@v2
         with:
           service: ${{ secrets.GCP_CLOUD_RUN_SERVICE }}
-          image: ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/cloud-run/${{ github.repository }}:${{ github.sha }}
+          image: ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/mnist-pipeline/${{ github.repository }}:${{ github.sha }}
           REGION: ${{ secrets.GCP_REGION }}
           env_vars: |
             WANDB_API_KEY=${{ secrets.WANDB_API_KEY }}
