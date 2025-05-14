@@ -68,14 +68,14 @@ jobs:
             gcloud beta run jobs update $JOB_NAME \
               --image=$IMAGE \
               --region=$REGION \
-              --set-env-vars=WANDB_API_KEY=${{ secrets.WANDB_API_KEY }} \
+              --set-env-vars=WANDB_API_KEY=${{ secrets.WANDB_KEY }} \
               --quiet
           else
             echo "Creating new job..."
             gcloud beta run jobs create $JOB_NAME \
               --image=$IMAGE \
               --region=$REGION \
-              --set-env-vars=WANDB_API_KEY=${{ secrets.WANDB_API_KEY }} \
+              --set-env-vars=WANDB_API_KEY=${{ secrets.WANDB_KEY }} \
               --quiet
           fi
 
