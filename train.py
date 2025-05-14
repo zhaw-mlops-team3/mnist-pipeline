@@ -4,7 +4,10 @@ import wandb
 def train(model,train_loader, criterion, optimizer, epochs, device):
     for epoch in range(1, epochs + 1):
         running_loss = train_one_epoch(model, train_loader, criterion, optimizer, device)
-        wandb.log({"running_loss": running_loss})
+        wandb.log({
+            "running_loss": running_loss}
+            "epoch": epoch
+            )
 
 
 def train_one_epoch(model, train_loader, criterion, optimizer, device):
@@ -18,6 +21,5 @@ def train_one_epoch(model, train_loader, criterion, optimizer, device):
         running_loss += loss
         loss.backward()
         optimizer.step()
-        wandb.log({"loss": loss.item()})
 
     return running_loss

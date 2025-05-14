@@ -41,7 +41,9 @@ def main():
     test_loader = DataLoader(test_dataset, batch_size=1000, shuffle=False)
 
     train(model, train_loader, criterion, optimizer, config.epochs, device)
-    evaluate(model, test_loader, device)
+    accuracy = evaluate(model, test_loader, device)
+
+    wandb.log({"test_accuracy": accuracy})
     
     now = datetime.now()
     time_string = f"{now.year}-{now.month}-{now.day}-{now.hour}-{now.minute}"

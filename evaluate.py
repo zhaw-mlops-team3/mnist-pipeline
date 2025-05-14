@@ -13,6 +13,5 @@ def evaluate(model, test_loader, device):
             correct += pred.eq(target).sum().item()
 
     accuracy = 100. * correct / len(test_loader.dataset)
-    wandb.log({"test_accuracy": accuracy})
-    print(f"Test Accuracy: {accuracy:.2f}%")
+    return accuracy
 
