@@ -68,6 +68,8 @@ jobs:
             gcloud beta run jobs update $JOB_NAME \
               --image=$IMAGE \
               --region=$REGION \
+              --memory=4Gi \
+              --task-timeout=100m
               --set-env-vars=WANDB_API_KEY=${{ secrets.WANDB_KEY }} \
               --quiet
           else
@@ -75,6 +77,8 @@ jobs:
             gcloud beta run jobs create $JOB_NAME \
               --image=$IMAGE \
               --region=$REGION \
+              --memory=4Gi \
+              --task-timeout=100m
               --set-env-vars=WANDB_API_KEY=${{ secrets.WANDB_KEY }} \
               --quiet
           fi
