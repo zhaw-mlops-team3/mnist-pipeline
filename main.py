@@ -11,8 +11,7 @@ from evaluate import evaluate
 from datetime import datetime
 import os
 
-def init_wandb():
-    wandb.init(project="mnist-pipeline", entity="zhaw-mlops-group3")
+def get_wandb_config():
     return wandb.config
 
 
@@ -23,7 +22,7 @@ def init_device():
 
 
 def main():
-    config = init_wandb()
+    config = get_wandb_config()
     device = init_device()
     model = Net()
     optimizer = optim.Adam(model.parameters(), lr=config.learning_rate)
