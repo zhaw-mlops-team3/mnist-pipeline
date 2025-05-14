@@ -12,6 +12,7 @@ from datetime import datetime
 import os
 
 def get_wandb_config():
+    wandb.init(project="mnist-pipeline", entity="zhaw-mlops-group3")
     return wandb.config
 
 
@@ -52,6 +53,3 @@ def main():
     artifact.add_file(model_path)
     wandb.log_artifact(artifact)
     os.remove(model_path)
-
-if __name__ == "__main__":
-    main()
