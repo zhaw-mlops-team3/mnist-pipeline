@@ -11,3 +11,4 @@
 wandb
 trained_models
 data
+__pycache__
