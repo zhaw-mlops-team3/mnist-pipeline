@@ -13,4 +13,4 @@ if sweep_config is None:
         sweep_config = yaml.safe_load(file)
 
 sweep_id = wandb.sweep(sweep=sweep_config, project="mnist-pipeline", entity="zhaw-mlops-group3")
-wandb.agent(sweep_id, function=main, count=10)
+wandb.agent(sweep_id, function=main, count=3)
